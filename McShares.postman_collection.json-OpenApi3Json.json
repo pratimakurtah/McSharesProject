@@ -1,0 +1,269 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "McShares",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/mcShares/retrieveCustomerDetails/C11233": {
+      "get": {
+        "tags": [
+          "Shares/Customers"
+        ],
+        "summary": "retrieveCustomerDetails",
+        "operationId": "retrieveCustomerDetails",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Can either retrieve all customers persisted or retrieve information of 1 customer via customerRef or list all records of customer",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/mcShares/uploadAndValidateSharesFile": {
+      "post": {
+        "tags": [
+          "Shares/Customers"
+        ],
+        "summary": "uploadAndValidateSharesFile",
+        "operationId": "uploadAndValidateSharesFile",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Upload, validate and persist customer shares data from xml file",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/mcShares/searchForCustomerByName/John Doe": {
+      "get": {
+        "tags": [
+          "Shares/Customers"
+        ],
+        "summary": "searchForCustomerByName",
+        "operationId": "searchForCustomerByName",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Find all customers that have contains string parameter name",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/mcShares/retrieveCustomerDetailsWithBalance": {
+      "get": {
+        "tags": [
+          "Shares/Customers"
+        ],
+        "summary": "retrieveCustomerDetailsWithBalance",
+        "operationId": "retrieveCustomerDetailsWithBalance",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Query to return information about customer, shares, balance",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/mcShares/updateSharesDetails/C11233": {
+      "put": {
+        "tags": [
+          "Shares/Customers"
+        ],
+        "summary": "updateSharesDetails",
+        "operationId": "updateSharesDetails",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateSharesDetailsRequest"
+              },
+              "example": {
+                "numShares": 100,
+                "sharePrice": 5
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "update of specific records of shares",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/mcShares/downloadCustomerDetailsForCustomerRefAsCSV/C11233": {
+      "get": {
+        "tags": [
+          "Shares/Customers"
+        ],
+        "summary": "downloadCustomerDetailsForCustomerRefAsCSV",
+        "operationId": "downloadCustomerDetailsForCustomerRefAsCSV",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Allow downloading of a subset of the data as CSV, can pass customerRef as parameter to retrieve information of that customer",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/users/createUser/pkurtah/password": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "createUser",
+        "operationId": "createUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "create user in db",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/authenticate": {
+      "post": {
+        "tags": [
+          "JWT"
+        ],
+        "summary": "http://localhost:8080/authenticateAndGenerateToken",
+        "operationId": "http://localhost:8080/authenticateAndGenerateToken",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/httplocalhost8080authenticateAndGenerateTokenRequest"
+              },
+              "example": {
+                "username": "t",
+                "password": "password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticate user and generate token to acces other APIs",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "updateSharesDetailsRequest": {
+        "title": "updateSharesDetailsRequest",
+        "required": [
+          "numShares",
+          "sharePrice"
+        ],
+        "type": "object",
+        "properties": {
+          "numShares": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sharePrice": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "numShares": 100,
+          "sharePrice": 5
+        }
+      },
+      "httplocalhost8080authenticateAndGenerateTokenRequest": {
+        "title": "httplocalhost8080authenticateAndGenerateTokenRequest",
+        "required": [
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "username": "t",
+          "password": "password"
+        }
+      }
+    },
+    "securitySchemes": {
+      "httpBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "httpBearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Shares/Customers"
+    },
+    {
+      "name": "User"
+    },
+    {
+      "name": "JWT"
+    }
+  ]
+}
